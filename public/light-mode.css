@@ -1,0 +1,34 @@
+:root {
+    --light-mode-background:  #F0F7F8;
+    --light-mode-input: hsl(0, 0%, 100%)
+}
+
+/* ---- body ---- */
+.light-mode {
+    background-color: var(--light-mode-background) !important;
+}
+.light-mode .container {
+    color: black !important;
+}
+
+.light-mode header {
+    color: black;
+    background-color: var(--light-mode-background);
+}
+.light-mode .header__upper-container {
+    background-color: white !important;
+    color: black !important;
+}
+/* .light-mode .header__lower-container .form-field {
+    background-color: white;
+}
+.light-mode .header__lower-container {
+    background-color: beige;
+} */
+/* ---- results ---- */
+.light-mode .form-field {
+    background-color: var(--light-mode-input);
+}
+.light-mode .country-thumbnail {
+    background-color: var(--light-mode-input);
+}
