@@ -1,18 +1,23 @@
 import React from 'react';
-import CountryThumb from './country-thumbnail';
 import Header from './header';
+import Results from './results';
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
-
-        this.getData = this.getData.bind(this);
-        this.search = this.search.bind(this);
-        this.searchByCountry = this.searchByCountry.bind(this);
-
         this.state = {
-            searchText: null
-        }
+          darkMode: true,
+          countries: undefined,
+          searchText: undefined,
+          continentFilterText: undefined,
+          moonImgSrc: 'icons/moon-solid.svg'
+        };
+
+        this.toggleDarkMode = this.toggleDarkMode.bind(this);
+        this.renderData = this.renderData.bind(this);
+        this.searchCountry = this.searchCountry.bind(this);
+        this.filterContinent = this.filterContinent.bind(this);
+        this.renderFilterContinentData = this.renderFilterContinentData.bind(this);
     }
 
     async getData(url) {
@@ -28,116 +33,112 @@ export default class App extends React.Component {
           }
     }
 
-    renderData(data) {
-        // const data = await this.getData(url);
-        // let data = this.state.countryData;
-        if(!data) {
-            return false;
-        } 
-        let coutryThumbnails = data.map(function(item) {
-            return (
-                <CountryThumb
-                    imgSrc={item.flag}
-                    countryName={item.name}
-                    population={item.population}
-                    region={item.region}
-                    capital={item.capital}
-                />
-            );
-        })
-        this.setState(function(prevState) {
-            return {
-                coutryThumbnails: coutryThumbnails
-            }
-        })
-    }
-
-    search(e) {
-        let val = e.currentTarget.value;
+    async renderData(url) {
+      let dataArray = await this.getData(url);
+      if(dataArray) {
+        // console.log(dataArray)
         this.setState(function() {
-            return {
-                searchText: val
-            }
+          return {
+            countries: dataArray
+          }
         })
+      } 
     }
 
-    searchByCountry() {
-        let text = this.state.searchText;
-
-        if(!document.getElementById('search-by-country').value) {
-            let regionVal = document.getElementById('filter-by-region').value;
-            //get all countries by region
-            // let endpoint = `https://restcountries.eu/rest/v2/region/${regionVal}`;
-            let countryObj = this.state.countryData.map(function(item) {
-                if(item.region == regionVal) {
-                    return item
-                }
-            })
-            this.renderData(countryObj)
-        } else {
-            // let endpoint = `https://restcountries.eu/rest/v2/name/${text}?fullText=true`;
-            let countryObj = this.state.countryData.map(function(item) {
-                if(item.name == text) {
-                    console.loog(item)
-                    return item[0]
-                }
-            })
-            this.renderData(countryObj)
+    renderRawData(arr) {
+      this.setState(function() {
+        return {
+          countries: arr
         }
-        
+      })
     }
 
-    autoComplete(inputVal) {
-        //create array of all country names
-
-        //check if input value has letters starting with any of the counry strings
-
-        //if they do render html of possible matches
-
-
-    }
-
-    async createNameList() {
-        //creates a array of all country names and sets state with it
-        // let data = await this.getData('https://restcountries.eu/rest/v2/all');
-        let data = this.state.countryData;
-        let nameList = data.map(function(item) {
-            return item.name;
+    async renderFilterContinentData(url, region) {
+      let countryArr = await this.getData(url);
+      if(countryArr) {
+        let regionCountries = [];
+        countryArr.forEach(function(item) {
+          if(item.region.toLowerCase() === region.toLowerCase()) {
+            regionCountries.push(item)
+          }
         })
-        this.setState({
-            nameList: nameList
-        })
+        if(regionCountries) {
+          this.renderRawData(regionCountries)
+        }
+      }
     }
 
-    async setCountryData() {
-        let countryData = await this.getData('https://restcountries.eu/rest/v2/all');
-        this.setState(function() {
-            return {
-                countryData: countryData
-            }
-        })
-        this.renderData(countryData)
-        this.createNameList()
+    searchCountry(e) {
+      let text = e.currentTarget.value;
+      if(this.state.continentFilterText) {
+        let region = this.state.continentFilterText;
+        this.renderFilterContinentData(`https://restcountries.eu/rest/v2/name/${text}`, region);
+        return
+      }
+
+      this.setState(function() {
+        return {
+          searchText: text
+        }
+      })
+      setTimeout(function() {
+        this.renderData(`https://restcountries.eu/rest/v2/name/${this.state.searchText}`)
+      }.bind(this), 1200)
     }
 
+    filterContinent(e) {
+      let text = e.currentTarget.value;
+      console.log(text)
+      this.setState(function() {
+        return {
+          continentFilterText: text
+        }
+      })
+    }
 
     componentDidMount() {
-        //fll the page with all countries
-        // this.renderData('https://restcountries.eu/rest/v2/all');
-        // this.createNameList();
-        this.setCountryData()
+      // this.renderData('https://restcountries.eu/rest/v2/all')
     }
 
-    
+    toggleDarkMode() {
+      // document.getElementsByTagName('body')[0].classList.add('light-mode')
+      let cl = document.getElementsByTagName('body')[0].classList;
+      // console.log(cl)
+      if(cl.value === 'light-mode') {
+        cl.remove('light-mode')
+        this.setState({
+          moonImgSrc: 'icons/moon-solid.svg'
+        })
+      } else {
+        cl.add('light-mode')
+        this.setState(function() {
+          return {
+            moonImgSrc: 'icons/dark-theme-moon-black.svg'
+          }
+        })
+      }
+    }
+
 
     render() {
-        return(
-            <div>
-                <Header handleChange={this.search} handleClick={this.searchByCountry}/>
-                <div className="results">
-                    {this.state.coutryThumbnails}
-                </div>
-            </div>
-        );
+      let darkMode;
+      if(this.state.darkMode) {
+        darkMode = '';
+      } else {
+        darkMode = ' light-mode';
+      }
+      // let countries;
+      // if(this.state.countries) {
+      //   countries = this.state.countries;
+      // } else {
+      //   countries = null;
+      // }
+      return (
+        <div className={'container'+darkMode}>
+          <Header darkModeClick={this.toggleDarkMode} handleChange={this.searchCountry} handleContinentChange={this.filterContinent} moonImg={this.state.moonImgSrc}/>
+          <Results items={this.state.countries}/>
+        </div>
+      );
     }
+    
 }
