@@ -1,0 +1,23 @@
+@media(max-width: 690px) {
+    .header__upper-container {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .header__upper-container * {
+        /* margin: 25px; */
+    }
+    .header__lower-container {
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .header__lower-container .form-field {
+        margin: 0;
+        width: 80%;
+    }
+    .header__lower-container .select {
+        width: initial;
+    }
+
+}
