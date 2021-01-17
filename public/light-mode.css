@@ -30,5 +30,5 @@
     background-color: var(--light-mode-input);
 }
 .light-mode .country-thumbnail {
-    background-color: var(--light-mode-input);
+    /* background-color: var(--light-mode-input); */
 }
