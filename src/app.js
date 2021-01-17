@@ -76,7 +76,7 @@ export default class App extends React.Component {
           searchText: text
         }
       })
-      
+
       if(this.state.continentFilterText) {
         let region = this.state.continentFilterText;
         this.renderFilterContinentData(`https://restcountries.eu/rest/v2/name/${text}`, region);
@@ -89,6 +89,7 @@ export default class App extends React.Component {
     }
 
     filterContinent(e) {
+      //searches with region as filter
       let region = e.currentTarget.value;
       let text = this.state.searchText;
       console.log(text)
