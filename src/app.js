@@ -70,17 +70,19 @@ export default class App extends React.Component {
 
     searchCountry(e) {
       let text = e.currentTarget.value;
-      if(this.state.continentFilterText) {
-        let region = this.state.continentFilterText;
-        this.renderFilterContinentData(`https://restcountries.eu/rest/v2/name/${text}`, region);
-        return
-      }
 
       this.setState(function() {
         return {
           searchText: text
         }
       })
+      
+      if(this.state.continentFilterText) {
+        let region = this.state.continentFilterText;
+        this.renderFilterContinentData(`https://restcountries.eu/rest/v2/name/${text}`, region);
+        return
+      }
+
       setTimeout(function() {
         this.renderData(`https://restcountries.eu/rest/v2/name/${this.state.searchText}`)
       }.bind(this), 1200)
@@ -95,9 +97,9 @@ export default class App extends React.Component {
           continentFilterText: region
         }
       })
-      if(region) {
+      if(region && text) {
         this.renderFilterContinentData(`https://restcountries.eu/rest/v2/name/${text}`, region);
-      } else {
+      } else if(text) {
         this.renderData(`https://restcountries.eu/rest/v2/name/${text}`)
       }
     }
