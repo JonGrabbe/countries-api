@@ -1,4 +1,5 @@
 @media(max-width: 690px) {
+    /* ---- header ---- */
     .header__upper-container {
         flex-direction: column;
         align-items: flex-start;
@@ -7,6 +8,12 @@
     .header__upper-container * {
         /* margin: 25px; */
     }
+    .dark-mode-container {
+        margin-bottom: 18px;
+    }
+}
+@media(max-width: 930px) {
+    /* -- form fields -- */
     .header__lower-container {
         flex-direction: column;
         align-items: flex-start;
@@ -16,8 +23,20 @@
         margin: 0;
         width: 80%;
     }
+    .header__search-input-container {
+        padding-right: 0;
+    }
+    .header__search-text-field {
+        width: 90%;
+    }
     .header__lower-container .select {
         width: initial;
+        margin-top: 10px;
     }
+}
 
+
+/* ---- results ---- */
+.results-container {
+    grid-template-columns: 1fr;
 }
