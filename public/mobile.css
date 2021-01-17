@@ -33,10 +33,10 @@
         width: initial;
         margin-top: 10px;
     }
+    /* ---- results ---- */
+    .results-container {
+        grid-template-columns: 1fr;
+    }
 }
 
 
-/* ---- results ---- */
-.results-container {
-    grid-template-columns: 1fr;
-}

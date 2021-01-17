@@ -1,5 +1,6 @@
 {
   "name": "trivia-quiz",
+  "homepage": "https://www.countries.jongrabbe.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
