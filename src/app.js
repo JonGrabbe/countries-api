@@ -87,13 +87,19 @@ export default class App extends React.Component {
     }
 
     filterContinent(e) {
-      let text = e.currentTarget.value;
+      let region = e.currentTarget.value;
+      let text = this.state.searchText;
       console.log(text)
       this.setState(function() {
         return {
-          continentFilterText: text
+          continentFilterText: region
         }
       })
+      if(region) {
+        this.renderFilterContinentData(`https://restcountries.eu/rest/v2/name/${text}`, region);
+      } else {
+        this.renderData(`https://restcountries.eu/rest/v2/name/${text}`)
+      }
     }
 
     componentDidMount() {
