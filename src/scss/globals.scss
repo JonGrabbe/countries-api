@@ -1,0 +1,42 @@
+// typography
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+body {
+    font-family: "Nunito Sans", sans-serif;
+    color: white;
+}
+// button reset
+button {
+    // display: none;
+    background: none;
+    border: 0;
+}
+.header {
+    padding: 33px 16px;
+    display: flex;
+    justify-content: space-between;
+}
+.header-button-container {
+    display: flex;
+    justify-content: space-between;
+    .header-button {
+    svg {
+        fill: currentColor;   
+    }
+    align-items: center;
+        color: white;
+    }
+    
+}
+.homepage-items-text {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+
+#header {
+    font-size: 18px;
+    font-weight: 700;
+}
+.details-page {
+    
+}
