@@ -1,3 +1,39 @@
 .header {
     background-color: $dark-blue;
 }
+
+
+.header {
+    padding: 33px 16px;
+    display: flex;
+    justify-content: space-between;
+}
+#header {
+    font-size: 18px;
+    font-weight: 700;
+
+}
+.header-button {
+    display: flex;
+    justify-content: space-between;
+    svg {
+        fill: currentColor;   
+        margin-right: 5px;
+    }
+    align-items: center;
+        color: white;
+    .header-button {
+    }
+    
+    .text-container {
+       font-family: "Nunito Sans"; 
+       
+    }
+}
+
+
+@include desktop(768px) {
+    #header {
+        font-size: 24px;
+    }
+}
