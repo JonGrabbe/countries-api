@@ -5,7 +5,7 @@ export default function SearchBar() {
         <div className="search-bar">
             <img src={searchIconImg} alt="search icon" />
             
-            <input type="text" placeholder="Search for a country..." />
+            <input type="text" placeholder="Search for a country... changes made" />
         </div>
     )
 }
